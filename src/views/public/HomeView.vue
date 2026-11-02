@@ -7,7 +7,7 @@ import {
   UserRound, UserCog, Users, Wallet, Wifi, X,
 } from '@lucide/vue';
 import PhotoLightbox from '@/components/PhotoLightbox.vue';
-import api, { errorMessage } from '@/services/api';
+import api, { assetUrl, errorMessage } from '@/services/api';
 import { useAuthStore } from '@/stores/auth';
 import { formatDate, formatMonth, formatNumber, formatRupiah, today } from '@/utils/format';
 
@@ -125,7 +125,7 @@ onMounted(async () => {
 
         <aside class="card siaga">
           <div class="siaga__img">
-            <img v-if="s.siaga.gambar" :src="s.siaga.gambar" alt="" />
+            <img v-if="s.siaga.gambar" :src="assetUrl(s.siaga.gambar)" alt="" />
             <span class="siaga__tag">{{ s.siaga.tag }}</span>
           </div>
           <div class="siaga__body">
@@ -232,7 +232,7 @@ onMounted(async () => {
         <div v-if="home.activities.length" class="gallery">
           <article v-for="a in home.activities" :key="a.id" class="card tile">
             <component :is="a.fotos.length ? 'button' : 'div'" class="tile__media" :aria-label="a.fotos.length ? `Lihat foto ${a.judul}` : undefined" @click="a.fotos.length && (gallery = { photos: a.fotos, title: a.judul })">
-              <img v-if="a.fotos.length" :src="a.fotos[0]" :alt="a.judul" loading="lazy" />
+              <img v-if="a.fotos.length" :src="assetUrl(a.fotos[0])" :alt="a.judul" loading="lazy" />
               <CalendarDays v-else :size="32" />
               <span v-if="a.tanggal >= today()" class="tile__flag">Akan Datang</span>
               <span v-if="a.fotos.length > 1" class="tile__count"><Images :size="13" /> {{ a.fotos.length }} foto</span>
@@ -328,7 +328,7 @@ onMounted(async () => {
         <div v-if="home.facilities.length" class="gallery">
           <article v-for="f in home.facilities" :key="f.id" class="card tile">
             <component :is="f.fotos.length ? 'button' : 'div'" class="tile__media" :aria-label="f.fotos.length ? `Lihat foto ${f.nama}` : undefined" @click="f.fotos.length && (gallery = { photos: f.fotos, title: f.nama })">
-              <img v-if="f.fotos.length" :src="f.fotos[0]" :alt="f.nama" loading="lazy" />
+              <img v-if="f.fotos.length" :src="assetUrl(f.fotos[0])" :alt="f.nama" loading="lazy" />
               <Building2 v-else :size="32" />
               <span v-if="f.fotos.length > 1" class="tile__count"><Images :size="13" /> {{ f.fotos.length }} foto</span>
             </component>
@@ -356,7 +356,7 @@ onMounted(async () => {
           <h3>{{ s.wilayah.judul }}</h3>
           <p>{{ s.wilayah.deskripsi }}</p>
           <div class="map">
-            <img v-if="s.wilayah.gambar_denah" :src="s.wilayah.gambar_denah" alt="Denah wilayah RT" />
+            <img v-if="s.wilayah.gambar_denah" :src="assetUrl(s.wilayah.gambar_denah)" alt="Denah wilayah RT" />
             <span v-if="s.wilayah.posko" class="map__label"><MapPin :size="14" /> Titik Posko Utama: <b>{{ s.wilayah.posko }}</b></span>
           </div>
           <div class="batas">

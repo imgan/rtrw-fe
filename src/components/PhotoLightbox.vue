@@ -1,6 +1,7 @@
 <script setup>
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { ChevronLeft, ChevronRight, X } from '@lucide/vue';
+import { assetUrl } from '@/services/api';
 
 const props = defineProps({
   photos: { type: Array, required: true },
@@ -28,7 +29,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey));
       <button class="box__close" aria-label="Tutup" @click="emit('close')"><X :size="22" /></button>
       <button v-if="photos.length > 1" class="box__nav box__nav--prev" aria-label="Foto sebelumnya" @click="step(-1)"><ChevronLeft :size="26" /></button>
       <figure>
-        <img :src="photos[index]" :alt="`${title}, foto ${index + 1}`" />
+        <img :src="assetUrl(photos[index])" :alt="`${title}, foto ${index + 1}`" />
         <figcaption>{{ title }} · {{ index + 1 }} / {{ photos.length }}</figcaption>
       </figure>
       <button v-if="photos.length > 1" class="box__nav box__nav--next" aria-label="Foto berikutnya" @click="step(1)"><ChevronRight :size="26" /></button>

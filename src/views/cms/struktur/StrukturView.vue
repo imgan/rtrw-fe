@@ -12,7 +12,7 @@ import ReplaceOfficialModal from './ReplaceOfficialModal.vue';
 import MutationFormModal from './MutationFormModal.vue';
 import StrukturSettingsModal from './StrukturSettingsModal.vue';
 import { mutationsApi, officialsApi } from '@/services/cms';
-import { errorMessage } from '@/services/api';
+import { assetUrl, errorMessage } from '@/services/api';
 import { useCrudList } from '@/composables/useCrudList';
 import { useToast } from '@/composables/useToast';
 import { formatDate } from '@/utils/format';
@@ -198,7 +198,7 @@ onMounted(refreshAll);
             <div><strong>{{ s.sk.judul }}</strong> <span v-if="s.sk.status" class="sk__badge">{{ s.sk.status }}</span></div>
             <small>Nomor Dokumen: <b>{{ s.sk.nomor }}</b> | Ditetapkan {{ s.sk.penetap }} pada {{ formatDate(s.sk.tanggal) }}.</small>
           </div>
-          <a v-if="s.sk.file" :href="s.sk.file" target="_blank" class="sk__link no-print">Unduh Salinan Digital SK <Download :size="15" /></a>
+          <a v-if="s.sk.file" :href="assetUrl(s.sk.file)" target="_blank" class="sk__link no-print">Unduh Salinan Digital SK <Download :size="15" /></a>
           <button v-else class="sk__link no-print" @click="settingsOpen = true">Unggah Salinan SK <ExternalLink :size="15" /></button>
         </div>
       </section>
@@ -261,7 +261,7 @@ onMounted(refreshAll);
               <button class="btn btn--icon btn--ghost is-danger" title="Hapus" @click="deletingOfficial = o"><Trash2 :size="14" /></button>
             </div>
             <div class="official__head">
-              <img v-if="o.foto" :src="o.foto" alt="" class="official__photo" />
+              <img v-if="o.foto" :src="assetUrl(o.foto)" alt="" class="official__photo" />
               <span v-else class="official__photo official__photo--initial">{{ initials(o.nama) }}</span>
               <div>
                 <span v-if="o.label" class="official__label"><BadgeCheck :size="13" /> {{ o.label }}</span>

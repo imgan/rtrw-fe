@@ -1,10 +1,17 @@
 import axios from 'axios';
 import { tokenStorage } from './tokenStorage';
 
+const API_URL = import.meta.env.VITE_API_URL || '/api';
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '/api',
+  baseURL: API_URL,
   timeout: 15000,
 });
+
+const BACKEND_ORIGIN = API_URL.replace(/\/api\/?$/, '');
+
+/** Berkas unggahan dilayani backend; aset /images milik frontend tetap relatif. */
+export const assetUrl = (path) => (path?.startsWith('/uploads/') ? `${BACKEND_ORIGIN}${path}` : path);
 
 api.interceptors.request.use((config) => {
   const token = tokenStorage.get();

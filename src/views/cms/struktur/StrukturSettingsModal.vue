@@ -3,7 +3,7 @@ import { reactive, ref } from 'vue';
 import { FileText, Trash2, Upload } from '@lucide/vue';
 import BaseModal from '@/components/BaseModal.vue';
 import { settingsApi, uploadFile } from '@/services/cms';
-import { errorMessage } from '@/services/api';
+import { assetUrl, errorMessage } from '@/services/api';
 import { useToast } from '@/composables/useToast';
 
 const props = defineProps({ settings: { type: Object, required: true } });
@@ -100,7 +100,7 @@ async function submit() {
       <div class="field span-2">
         <label class="field__label">Salinan Digital SK (PDF / gambar)</label>
         <div class="sk-file">
-          <a v-if="form.sk.file" :href="form.sk.file" target="_blank" class="sk-file__link"><FileText :size="16" /> Lihat berkas</a>
+          <a v-if="form.sk.file" :href="assetUrl(form.sk.file)" target="_blank" class="sk-file__link"><FileText :size="16" /> Lihat berkas</a>
           <span v-else class="sk-file__empty">Belum ada berkas</span>
           <input ref="fileInput" type="file" accept="application/pdf,image/*" hidden @change="onPickSk" />
           <button type="button" class="btn btn--ghost btn--sm" :disabled="uploading" @click="fileInput.click()">

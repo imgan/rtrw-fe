@@ -6,7 +6,7 @@ import ConfirmDialog from '@/components/ConfirmDialog.vue';
 import DataPager from '@/components/DataPager.vue';
 import PhotosUpload from '@/components/PhotosUpload.vue';
 import { activitiesApi } from '@/services/cms';
-import { errorMessage, fieldErrors } from '@/services/api';
+import { assetUrl, errorMessage, fieldErrors } from '@/services/api';
 import { useCrudList } from '@/composables/useCrudList';
 import { useToast } from '@/composables/useToast';
 import { formatDate, today } from '@/utils/format';
@@ -88,7 +88,7 @@ onMounted(load);
             <tr v-for="a in rows" :key="a.id">
               <td>
                 <div class="thumb">
-                  <img v-if="a.fotos.length" :src="a.fotos[0]" alt="" />
+                  <img v-if="a.fotos.length" :src="assetUrl(a.fotos[0])" alt="" />
                   <ImageOff v-else :size="18" />
                   <span v-if="a.fotos.length > 1" class="thumb__count">{{ a.fotos.length }}</span>
                 </div>
