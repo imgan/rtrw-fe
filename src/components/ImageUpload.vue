@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { ImageUp, Trash2 } from '@lucide/vue';
 import { uploadFile } from '@/services/cms';
-import { errorMessage } from '@/services/api';
+import { assetUrl, errorMessage } from '@/services/api';
 import { useToast } from '@/composables/useToast';
 
 const model = defineModel({ type: String, default: '' });
@@ -32,7 +32,7 @@ async function onPick(e) {
 <template>
   <div class="upload">
     <div class="upload__preview" :style="{ aspectRatio: ratio }">
-      <img v-if="model" :src="model" alt="" />
+      <img v-if="model" :src="assetUrl(model)" alt="" />
       <span v-else>Belum ada gambar</span>
     </div>
     <div class="upload__actions">

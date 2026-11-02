@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { ImageUp, X } from '@lucide/vue';
 import { uploadFile } from '@/services/cms';
-import { errorMessage } from '@/services/api';
+import { assetUrl, errorMessage } from '@/services/api';
 import { useToast } from '@/composables/useToast';
 
 const MAX_PHOTOS = 8;
@@ -37,7 +37,7 @@ async function onPick(e) {
 <template>
   <div class="photos">
     <div v-for="(url, i) in model" :key="url" class="photos__item">
-      <img :src="url" alt="" />
+      <img :src="assetUrl(url)" alt="" />
       <span v-if="i === 0" class="photos__cover">Sampul</span>
       <button type="button" class="photos__remove" title="Hapus foto" @click="model = model.filter((u) => u !== url)"><X :size="14" /></button>
     </div>
